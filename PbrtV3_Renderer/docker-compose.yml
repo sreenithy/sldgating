@@ -1,0 +1,11 @@
+version: "2.4"
+services:
+  light_transport_capture_pbrtv3:
+    build: .
+    image: light_transport_capture_pbrtv3_image
+    shm_size: 32gb
+    container_name: light_transport_capture_pbrtv3_container
+    volumes:
+      - ./:/root/work
+    tty: true
+

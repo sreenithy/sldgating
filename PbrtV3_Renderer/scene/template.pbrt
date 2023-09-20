@@ -1,0 +1,85 @@
+Integrator "bdpt" "integer maxdepth" [8]
+
+#Sampler "halton" "integer pixelsamples" [16]
+Sampler "halton" "integer pixelsamples" [__PIXEL_SAMPLE__]
+
+PixelFilter "gaussian"
+
+Film "image" "integer xresolution" [__X_RESOLUTION__] "integer yresolution" [__Y_RESOLUTION__]
+#Film "image" "integer xresolution" [256] "integer yresolution" [256]
+    "string filename" "__OUTPUT_FILENAME__"
+
+LookAt 0 -5 0  0 -1 0  0 0 1
+Camera "perspective" "float fov" [30]
+
+WorldBegin
+AttributeBegin
+    Translate 0 -5 0
+    Rotate 180.0 0.0 1.0 0.0
+    Rotate 90.0 1.0 0.0 0.0
+    Scale 1 1 -1
+    LightSource "projection" "float fov" [30] "color I" [100 100 100]
+	"string mapname" ["__PROJECTION_FILENAME__"]
+AttributeEnd
+
+#AttributeBegin
+#    LightSource "point" "point from" [0.000000 0.000000 0.900000 ] "color I" [1 1 1] 
+#AttributeEnd
+
+AttributeBegin
+    
+    Material "mirror"
+
+    # for dragon
+    # Identity
+    #Rotate 90.0 1.0 0.0 0.0
+    #Scale 0.008 0.008 0.008
+    #Shape "plymesh" "string filename" ["geometry/dragon.ply"]
+    
+    # for bunny
+    #Identity
+    #Translate 0.2 0 -0.5
+    #Scale 6 6 6
+    #Rotate 90.0 1.0 0.0 0.0
+    #ReverseOrientation
+    #Shape "plymesh" "string filename" ["geometry/bunny.ply"]    
+    
+    # for sphere
+    #Identity
+    #Shape "sphere" "float radius" [0.4] 
+    
+    # for disco ball
+    Identity
+    Scale 0.4 0.4 0.4
+    Shape "plymesh" "string filename" ["geometry/discoball.ply"]    
+    
+AttributeEnd
+
+# cornel box
+AttributeBegin
+    	Material "matte" "rgb Kd" [0.3 0.3 0.3]
+# far
+    Shape "trianglemesh"  "integer indices" [0 1 2  1 2 3]
+        "point P" [-1 1 -1   1 1 -1    -1 1 1   1 1 1]
+       "float uv" [ 0 0  1 0  0 1  1 1]
+# bottom
+    Shape "trianglemesh"  "integer indices" [0 1 2  1 2 3]
+        "point P" [-1 -1 -1   1 -1 -1    -1 1 -1   1 1 -1]
+       "float uv" [ 0 0  1 0  0 1  1 1]
+# top
+    Shape "trianglemesh"  "integer indices" [0 1 2  1 2 3]
+        "point P" [-1 -1 1   1 -1 1    -1 1 1   1 1 1]
+       "float uv" [ 0 0  1 0  0 1  1 1]
+# left
+    Material "matte" "rgb Kd" [0.3 0.1 0.1]
+    Shape "trianglemesh"  "integer indices" [0 1 2  1 2 3]
+        "point P" [1 -1 -1   1 1 -1    1 -1 1   1 1 1]
+       "float uv" [ 0 0  1 0  0 1  1 1]
+# right
+    Material "matte" "rgb Kd" [0.1 0.1 0.3]
+    Shape "trianglemesh"  "integer indices" [0 1 2  1 2 3]
+        "point P" [-1 -1 -1   -1 1 -1    -1 -1 1   -1 1 1]
+       "float uv" [ 0 0  1 0  0 1  1 1]
+AttributeEnd
+
+WorldEnd
